@@ -1,0 +1,74 @@
+server:
+  port: 8088
+  tomcat:
+    #    设置字符集
+    uri-encoding: utf-8
+  #项目部署在tomcat中的路径是什么
+#  servlet:
+#    context-path: /index.php/api
+spring:
+  datasource:
+    dynamic:
+      primary: v2broard #设置默认的数据源或者数据源组,默认值即为master
+      strict: false #设置严格模式,默认false不启动. 启动后在未匹配到指定数据源时候回抛出异常,不启动会使用默认数据源.
+      datasource:
+        v2broard:
+          driver-class-name: com.mysql.cj.jdbc.Driver
+          url: jdbc:mysql://localhost:3306/aws?useUnicode=true&characterEncoding=UTF8&serverTimezone=Asia/Shanghai
+          username: root
+          password: 123456
+        aws:
+          driver-class-name: com.mysql.cj.jdbc.Driver
+          url: jdbc:mysql://localhost:3306/aws?useUnicode=true&characterEncoding=UTF8&serverTimezone=Asia/Shanghai
+          username: root
+          password: 123456
+  application:
+    name: yongyech
+  jackson:
+    time-zone: GMT+8
+    date-format: yyyy-MM-dd HH:mm:ss
+  http:
+    encoding:
+      charset: UTF-8
+      force: true
+      enabled: true
+  redis:
+    database: 0
+    host: localhost
+    port: 6379
+    #password: abc123456
+    jedis:
+      pool:
+        max-active: 1000
+        max-wait: -1ms
+        max-idle: 16
+        min-idle: 8
+  # 服务模块
+  devtools:
+    restart:
+      # 热部署开关
+      enabled: true
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  global-config:
+    db-config:
+      table-prefix:
+logging:
+  level:
+    root: info
+    com.zhuer.vehiclemanagement.dao : warn   #将dao接口设置为了警告级别  info是普通模式打印的日志
+  pattern:
+    #日志打印的格式
+    console: "%d{HH:mm:ss}  %-5level  %msg%n"
+#    输出到文件
+#  file:
+#    name: log/springboot.log
+    #jwt
+jwt:
+  config:
+    key: vehicle_management
+    #令牌过期时间
+    ttl: 24
+    #令牌缓存时间
+    cache-expire: 48
